@@ -28,10 +28,17 @@ function myMap(collection, cbFunction){
 
 function myReduce(collection, cbFunction, acc){
     let newCollection = standardizeInput(collection)
-    for(let i = 0; i < newCollection.length; i++){
-        let val = 0
-        cbFunction(acc, val, newCollection[i])
+    let i;
+    if(acc){
+        i = 0
+    } else {
+        i = 1
+        acc = newCollection[0]
     }
+    for(i; i < newCollection.length; i++){
+        acc = cbFunction(acc, newCollection[i], newCollection)
+    }
+    return acc;
 }
 
 function myFind(collection, predicate){
